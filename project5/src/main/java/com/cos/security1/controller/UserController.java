@@ -21,7 +21,6 @@ import com.cos.security1.config.auth.PrincipalDetails;
 import com.cos.security1.model.RoleType;
 import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
-import com.cos.security1.service.BookingService;
 import com.cos.security1.service.UserService;
 
 @Controller	// View를 리턴
@@ -32,9 +31,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private BookingService bookingService;
 	
 	@Autowired
     private AuthenticationManager authenticationManager;
@@ -87,17 +83,6 @@ public class UserController {
         return "/updateForm";
     }
 	
-    @GetMapping("/bookingPage")
-    public String reservationPage(Model model,@AuthenticationPrincipal PrincipalDetails principalDetail) {
-    	ArrayList<String> disabledDayList = bookingService.findDisabledDays();	
-    	
-    	for(int i=0; i<disabledDayList.size(); i++) {
-    		System.out.println("비활성화 날짜 : " + disabledDayList.get(i));
-    	}
-    	
-        model.addAttribute("user", principalDetail.getUser());
-        model.addAttribute("disabledDayList",disabledDayList);
-        return "/bookingPage";
-    }
+
 	
 }
